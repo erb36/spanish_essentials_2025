@@ -1,0 +1,262 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Define a custom CSS class using @apply */
+
+
+/* nav */
+.nav-container {
+  @apply fixed top-0 z-10 flex w-full flex-nowrap items-center justify-between bg-spanishYellowLight py-2 text-neutral-500 shadow-dark-mild hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-700 lg:flex-wrap lg:justify-start lg:py-4;
+}
+
+.nav-flexbox {
+  @apply flex w-full flex-wrap items-center justify-between px-3;
+}
+
+.hamburger-button {
+  @apply block border-0 bg-transparent px-2 text-black/50 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden;
+}
+
+.hamburger-icon {
+  @apply [&>svg]:w-7 [&>svg]:stroke-black/50 dark:[&>svg]:stroke-neutral-200;
+}
+
+.navbar-collapse {
+  @apply !visible mt-2 hidden flex-grow basis-[100%] items-center lg:mt-0 lg:!flex lg:basis-auto;
+}
+
+.main-container {
+  @apply w-full md:w-3/4 mx-auto mt-5 px-5 pt-1 pb-5 rounded-md border bg-slate-100;
+  /* bg-spanishYellowLight */
+}
+
+.intro {
+  @apply bg-spanishYellow mx-auto m-5 rounded-lg shadow-lg;
+}
+
+.intro-contents {
+  @apply flex flex-col-reverse xl:flex-row;
+}
+
+.intro-h1 {
+  @apply font-bold text-4xl mt-5 mx-auto;
+}
+
+.intro-text-div {
+  @apply flex flex-col w-2/3;
+}
+
+.intro-text {
+  @apply text-2xl mx-auto w-2/3 mb-10;
+}
+
+.nav-ul {
+  @apply list-none me-auto flex flex-col ps-0 lg:mt-1 lg:flex-row;
+}
+
+.nav-li-big {
+  @apply my-4 ps-2 lg:my-0 lg:pe-1 lg:ps-2;
+}
+
+.nav-li-small {
+  @apply mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0;
+}
+
+.nav-anchor-type-1 {
+  @apply text-black dark:text-white lg:px-2;
+}
+
+.nav-anchor-type-2 {
+  @apply p-0 text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2;
+}
+/* end of nav */
+
+
+.intro-img {
+  @apply lg:shrink-0 lg:grow-0 self-center m-5;
+}
+
+.accordion-item-button {
+  @apply relative flex w-full items-center rounded-t-lg border-0 bg-white px-5 py-4 text-left text-xl text-neutral-800 transition hover:bg-slate-100 hover:[&:not([data-twe-collapse-collapsed])]:bg-slate-100  [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-body-dark dark:text-white [&:not([data-twe-collapse-collapsed])]:bg-white [&:not([data-twe-collapse-collapsed])]:text-primary [&:not([data-twe-collapse-collapsed])]:shadow-border-b dark:[&:not([data-twe-collapse-collapsed])]:bg-surface-dark dark:[&:not([data-twe-collapse-collapsed])]:text-primary dark:[&:not([data-twe-collapse-collapsed])]:shadow-white/10;
+}
+
+.accordion-chevron {
+  @apply -me-1 ms-auto h-5 w-5 shrink-0 rotate-[-180deg] transition-transform duration-200 ease-in-out group-data-[twe-collapse-collapsed]:me-0 group-data-[twe-collapse-collapsed]:rotate-0 motion-reduce:transition-none [&>svg]:h-6 [&>svg]:w-6;
+}
+
+.accordion-panel {
+  @apply rounded-t-lg border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-body-dark;
+}
+
+.accordion-panel-square {
+  @apply border border-t-0 border-neutral-200 bg-white dark:border-neutral-600 dark:bg-body-dark;
+}
+
+.accordion-item {
+  @apply  hover:bg-slate-100 hover:shadow-lg hover:cursor-pointer;
+}
+
+.toggle-english {
+  @apply block w-full rounded bg-blue-500 text-neutral-50 shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] hover:bg-blue-600 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-blue-800 focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] active:bg-blue-700 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] px-6 pb-2 pt-2.5 text-lg font-medium leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0;
+}
+
+.reset-quiz-btn {
+  @apply block w-full bg-blue-500 text-neutral-50 px-6 py-3 rounded shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] hover:bg-blue-600 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]
+}
+
+.english {
+  @apply font-normal text-slate-500;
+}
+
+.spanish {
+  @apply text-2xl font-bold text-center;
+}
+
+.instructions {
+  @apply ml-2 mb-2 pl-2 border-l-2 border-slate-500;
+}
+
+.accordion-title {
+  @apply text-2xl font-bold;
+}
+
+  /* info-icon svg classes */
+
+  .info-icon {
+    @apply w-[20px] h-[20px] fill-[#8e8e8e] inline;
+  }
+  
+  .info-icon-cls-1 {
+    fill-opacity: .1;
+    fill: #010101;
+  }
+  
+  .info-icon-cls-2 {
+    fill: #010101;
+  }
+  
+  .info-icon-cls-3 {
+    fill: #fff;
+  }
+  
+    /* play-icon svg classes */
+  
+  .play-icon {
+    @apply w-[60px] h-[60px];
+  }
+
+  .feedback-play-icon {
+    @apply inline w-[30px] h-[30px];
+  }
+  
+  .play-icon-cls-1 {
+    fill-opacity: .1;
+  }
+  
+  .play-icon-cls-2 {
+    fill: #f39c14;
+  }
+  
+  .play-icon-cls-3 {
+    fill: #fff;
+  }
+  
+    /* svg classes end */
+
+.avatar {
+  @apply w-16 rounded-full;
+}
+
+.eye-icon {
+  @apply inline mx-1 pb-[2px] w-8 h-8;
+}
+
+.eye-slash-icon {
+  @apply inline ml-1 pb-[2px] w-8 h-8;
+}
+
+.know-how {
+  @apply flex flex-col bg-spanishYellow mx-auto my-10 w-2/3 rounded-lg p-3 shadow-xl;
+}
+
+.footer-image {
+  @apply flex justify-end mr-3;
+}
+
+.footer-container {
+  @apply container flex flex-col justify-between px-6 py-10 mx-auto space-y-8 md:flex-row md:space-y-0;
+}
+
+.footer-links {
+  @apply flex flex-col-reverse items-center justify-between space-y-12 md:flex-row md:space-y-0 md:items-start;
+}
+
+.back-to-top {
+  @apply flex flex-row justify-end;
+}
+
+.up-icon {
+  @apply inline w-[15px] h-[15px] fill-[#8e8e8e];
+}
+
+/* gpt */
+/* styles.css */
+.question:hover {
+  background-color: #f3f4f6; /* Light gray background on hover */
+}
+
+/* gpt end */
+
+.article-container {
+  @apply flex flex-col w-full;
+}
+
+.question-container {
+  @apply my-4 p-4 rounded-t-lg border-b-2 border-slate-200;
+}
+
+.exercise-instructions {
+  @apply mb-2 pb-2 border-b-2 border-orange-500
+}
+
+.question-text {
+  @apply text-lg font-semibold text-nowrap;
+}
+
+.questionFeedback-button-container {
+  @apply flex items-center justify-between;
+}
+
+.question-button-container {
+  @apply flex space-x-4
+}
+
+.question-button {
+  @apply bg-slate-400 text-white px-4 py-2 rounded hover:bg-slate-600 transition duration-300;
+}
+
+.hint-button {
+  @apply bg-slate-400 text-white text-sm ml-3 mb-4 px-2 py-1 rounded hover:bg-slate-600 transition duration-300;
+}
+
+.feedback-message {
+  @apply mt-2 w-full border border-gray-300 rounded-md p-2 text-sm;
+}
+
+.feedback-icon {
+  @apply ml-auto;
+}
+
+.feedback-icon-dropdown {
+  @apply ps-5;
+}
+
+.dropdown-container {
+  @apply flex flex-col md:flex-row items-center space-x-4;
+}
+
+.dropdown-button {
+  @apply relative border w-4/12 rounded border-gray-300 bg-slate-400 text-white shadow-lg;
+}
+
