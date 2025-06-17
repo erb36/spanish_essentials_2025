@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
       d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z" />
     </svg>`;
 
+
   // SVG icon for dropdown audio answer
   const DROPDOWN_AUDIO_SVG = `<svg class="feedback-play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 226 226.1">
                       <path class="play-icon-cls-2" d="M226.2,118.8c0-29.8-10.5-55.2-31.6-76.2-21-21-46.4-31.6-76.2-31.6-29.8,0-55.2,10.5-76.3,31.6-21,21.1-31.6,46.5-31.6,76.2,0,29.8,10.5,55.2,31.6,76.2,21.1,21.1,46.5,31.6,76.3,31.6s55.2-10.5,76.2-31.6c21.1-21,31.6-46.4,31.6-76.2m-43.3-12.1h0c.9.5,1.8,1,2.6,1.6.4.3.8.7,1.2,1.1,2.6,2.6,4,5.7,4,9.4s-1.3,6.8-4,9.4c-.4.4-.8.8-1.2,1.1-.8.6-1.6,1.2-2.6,1.6l-85.1,53.8c-.5.3-1,.6-1.5,1-1.9,1-3.9,1.5-6.2,1.5-3.7,0-6.8-1.3-9.4-4-2.5-2.5-3.8-5.5-3.9-9V63.5c0-3.5,1.4-6.6,3.9-9.1,2.6-2.6,5.7-3.9,9.4-3.9s4.5.5,6.4,1.5c.5.2.9.5,1.4.9l85.1,53.8Z"/>
@@ -357,76 +358,55 @@ document.addEventListener('DOMContentLoaded', function () {
   // end of ed dropdown test  ***********************************
 
 
-  
+
   // start of fill the blanks question  *************************
 
   function setupFilltheBlanks(container, quizFeedback) {
-    const questionContainer = document.querySelector(`#${container}`);
-    if (!questionContainer) {
-      console.log(`Container with class "${container}" not found.`);
-      return;
-    }
+    const questionContainer = document.getElementById(container);
+    if (!questionContainer) return;
 
     const questions = questionContainer.querySelectorAll('.question-js');
+    const answers = [
+      "estas bien", "gracias", "como estas", "buenas dias",
+      "y usted", "como estan", "usted"
+    ];
+
     questions.forEach((question, index) => {
-      // console.log(`Setting up question ${index + 1}`);
+      const input = question.querySelector('.text-input .fill_the_blank');
+      const submitBtn = question.querySelector('.submit-button');
+      const feedbackIcon = question.querySelector('.feedback-icon-js');
+      const feedbackMessage = question.querySelector('.feedback-message-js');
+      const hintButton = question.querySelector('.hint-button');
+      const hintText = question.querySelector('.hint-text');
 
-      const dropdowns = question.querySelector('select');
-
-      dropdowns.addEventListener('change', function () {
-        const selectedOption = dropdowns.options[dropdowns.selectedIndex];
-        const isCorrect = selectedOption.getAttribute('value') === 'correct';
-
-        // Handle feedback display based on the answer
-        const feedbackIcon = question.querySelector('.feedback-icon-js');
-        const feedbackMessage = question.querySelector('.feedback-message-js');
-
-        // Access feedback using index + 1 to align with 1-based keys
+      submitBtn?.addEventListener('click', () => {
+        const userAnswer = input?.value.trim().toLowerCase();
+        const correctAnswer = answers[index].toLowerCase();
         const feedbackIndex = index + 1;
 
-        if (isCorrect) {
-          if (feedbackIcon) {
-            feedbackIcon.innerHTML = CIRCLE_CHECK_SVG; // Display the checkmark icon
-            feedbackIcon.classList.remove('hidden'); // Add green text color
-            feedbackIcon.classList.remove('text-red-700'); // Remove red text color if present
-            feedbackIcon.classList.add('text-green-700');
-          }
-          // feedback message and audio icon if correct
-          if (feedbackMessage) {
-            feedbackMessage.innerHTML = DROPDOWN_AUDIO_SVG + quizFeedback[feedbackIndex].correct;
-            feedbackMessage.classList.remove('hidden');
-            feedbackMessage.classList.add('bg-green-100'); // Add light green background
-            feedbackMessage.classList.remove('bg-red-100'); // Remove light red background if present
-            feedbackMessage.classList.add('text-green-700'); // Add green text color
-            feedbackMessage.classList.remove('text-red-700'); // Remove red text color if present
-            feedbackMessage.classList.add('hover:bg-green-200'); // Add green background hover color
-            feedbackMessage.classList.add('hover:cursor-pointer'); // Add cursor hover pointer
+        if (userAnswer === correctAnswer) {
+          feedbackIcon.innerHTML = CIRCLE_CHECK_SVG;
+          feedbackIcon.classList.remove('hidden', 'text-red-700');
+          feedbackIcon.classList.add('text-green-700');
 
-            // Attach click event to feedback message to play audio
-            feedbackMessage.addEventListener('click', function () {
-              const audio = new Audio(`${AUDIO_PATH}/${container}/${feedbackIndex}.mp3`);
-              // const audio = new Audio(`${AUDIO_PATH}/${fileNamePrefix}/${feedbackIndex}.mp3`); - dropdown test!!
-              audio.play();
-            });
-          }
+          feedbackMessage.innerHTML = quizFeedback[feedbackIndex].correct;
+          feedbackMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+          feedbackMessage.classList.add('bg-green-100', 'text-green-700');
         } else {
-          if (feedbackIcon) {
-            feedbackIcon.innerHTML = CIRCLE_XMARK_SVG; // Display the x-mark icon
-            feedbackIcon.classList.remove('hidden');
-            feedbackIcon.classList.remove('text-green-700');
-            feedbackIcon.classList.add('text-red-700');
-          }
-          if (feedbackMessage) {
-            feedbackMessage.textContent = quizFeedback[feedbackIndex].incorrect; // Display "Incorrect" message
-            feedbackMessage.classList.remove('hidden');
-            feedbackMessage.classList.add('bg-red-100'); // Add light red background
-            feedbackMessage.classList.remove('bg-green-100'); // Remove light green background if present
-            feedbackMessage.classList.add('text-red-700'); // Add red text color
-            feedbackMessage.classList.remove('text-green-700'); // Remove green text color if present
-            feedbackMessage.classList.remove('hover:bg-green-200'); // Remove green background hover color if present
-            feedbackMessage.classList.remove('hover:cursor-pointer'); // remove cursor hover pointer if present
-          }
+          feedbackIcon.innerHTML = CIRCLE_XMARK_SVG;
+          feedbackIcon.classList.remove('hidden', 'text-green-700');
+          feedbackIcon.classList.add('text-red-700');
+
+          feedbackMessage.innerHTML = quizFeedback[feedbackIndex].incorrect;
+          feedbackMessage.classList.remove('hidden', 'bg-green-100', 'text-green-700');
+          feedbackMessage.classList.add('bg-red-100', 'text-red-700');
         }
+      });
+
+      hintButton?.addEventListener('click', () => {
+        const isHidden = hintText.style.display === 'none';
+        hintText.style.display = isHidden ? 'inline' : 'none';
+        hintButton.textContent = isHidden ? 'Hide hint' : 'See hint';
       });
     });
 
@@ -459,7 +439,11 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       console.log('Reset button not found.');
     }
+
   }
+
+
+
 
   // end of fill the blanks question  ***************************
 
@@ -475,7 +459,15 @@ document.addEventListener('DOMContentLoaded', function () {
   setupAccordion('accordion-container-6');
 
 
-
+  const exercise_fill_the_blanks_feedback = {
+    1: { correct: "Correct: Estás bien", incorrect: "Try again: It's a form of 'estar'" },
+    2: { correct: "Correct: Gracias", incorrect: "Try again: It's a common thanks" },
+    3: { correct: "Correct: ¿Cómo estás?", incorrect: "Try again: greeting question" },
+    4: { correct: "Correct: Buenos días", incorrect: "Try again: common morning greeting" },
+    5: { correct: "Correct: ¿Y usted?", incorrect: "Try again: response to a greeting" },
+    6: { correct: "Correct: ¿Cómo están?", incorrect: "Try again: plural greeting" },
+    7: { correct: "Correct: Usted", incorrect: "Try again: formal pronoun" }
+  };
 
 
   const exercise_greeting_or_goodbye_feedback = {
@@ -574,28 +566,7 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
 
-  const exercise_fill_the_blanks_feedback = {
-    1: {
-      correct: ' Correct feedback for fill the blanks question 1',
-      incorrect: '***hint-text*** ESTAR 2nd sing. informal'
-    },
-    2: {
-      correct: ' Correct feedback for fill the blanks question 2',
-      incorrect: '***hint-text*** thank you'
-    },
-    3: {
-      correct: ' Correct feedback for fill the blanks question 3',
-      incorrect: '***hint-text*** ESTAR 2nd sing. formal'
-    },
-    4: {
-      correct: ' Correct feedback for fill the blanks question 3',
-      incorrect: '***hint-text*** Good morning'
-    },
-    5: {
-      correct: ' Correct feedback for fill the blanks question 3',
-      incorrect: '***hint-text*** you sing. formal'
-    }
-  };
+
 
 
   // Call the function for the question container
@@ -605,6 +576,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   setupDropdownChoice('exercise-match-the-halves-1', exercise_match_the_halves_feedback);
 
+  setupFilltheBlanks("exercise-fill-the-blanks", exercise_fill_the_blanks_feedback);
+
 
 
 }); // end of DOMContentLoaded
+
