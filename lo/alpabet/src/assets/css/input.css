@@ -23,7 +23,7 @@
 }
 
 .navbar-collapse {
-  @apply !visible mt-2 hidden flex-grow basis-[100%] items-center lg:mt-0 lg:!flex lg:basis-auto;
+  @apply !visible mt-2 flex-grow basis-[100%] items-center lg:mt-0 lg:!flex lg:basis-auto;
 }
 
 .main-container {
